@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const User = require("./models/User");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -12,6 +13,7 @@ const secret = "sbbksjkfjsfljslkfowirw";
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect(
   "mongodb+srv://blog:085JBirenge@cluster0.frnf1sa.mongodb.net/"
@@ -60,7 +62,10 @@ app.post("/login", async (req, res) => {
     if (passOk) {
       jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
         if (err) throw err;
-        res.cookie("token", token).json("ok");
+        res.cookie("token", token).json({
+          username,
+          id: userDoc._id,
+        });
       });
     } else {
       res.status(400).json("Invalid username or password");
@@ -70,4 +75,15 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, (err, info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+});
+
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json("ok");
+});
 app.listen(5000);
