@@ -15,7 +15,7 @@ const app = express();
 const salt = bcrypt.genSaltSync(10);
 const secret = "sbbksjkfjsfljslkfowirw";
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "https://wtech-blog.netlify.app" }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -37,20 +37,6 @@ app.post("/register", async (req, res) => {
     res.status(400).json(error);
   }
 });
-
-// app.post("/login", async (req, res) => {
-//   const { username, password } = req.body;
-//   const userDoc = await User.findOne({ username });
-//   const passOk = bcrypt.compareSync(password, userDoc.password);
-//   if (passOk) {
-//     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
-//       if (err) throw err;
-//       res.cookie("token", token).json("ok");
-//     });
-//   } else {
-//     res.status(400).json("Invalid username or password");
-//   }
-// });
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
