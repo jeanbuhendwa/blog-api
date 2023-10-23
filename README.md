@@ -1,6 +1,6 @@
 # Blog App
 
-BlogApp is a versatile and user-friendly application designed to simplify the process of creating, managing, and sharing your thoughts, stories, and insights with the world. Built using the MERN (MongoDB, Express.js, React, Node.js) stack, BlogApp provides a robust and efficient platform for bloggers and content creators to publish and connect with their audience.
+BlogApp is an user-friendly application designed to simplify the process of creating, managing, and sharing your thoughts, stories, and insights with the world. Built using the MERN (MongoDB, Express.js, React, Node.js) stack, BlogApp provides a robust and efficient platform for bloggers and content creators to publish and connect with their audience.
 
 ## Features
 
